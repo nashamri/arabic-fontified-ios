@@ -7,7 +7,8 @@
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [org.clojure/clojurescript "1.10.339"]
                  [reagent "0.8.1"]
-                 [cljsjs/clipboard "1.6.1-1"]]
+                 [cljsjs/clipboard "1.6.1-1"]
+                 [cljsjs/introjs "2.4.0-0"]]
 
   :plugins [[lein-cljsbuild "1.1.5"]
             [lein-figwheel "0.5.16"]]
