@@ -2,8 +2,7 @@
   (:require
    [reagent.core :as r]
    [clojure.string :as str]
-   [cljsjs.clipboard]
-   [cljsjs.introjs]))
+   [cljsjs.clipboard]))
 
 ;; "﮼ "
 
@@ -41,20 +40,17 @@
          [:div.input-group
           [:input.form-input.input-lg {:on-change #(reset! text-in (-> % .-target .-value))
                                        :placeholder "أدخل النص هنا"
-                                       :style {:text-align "center"}
-                                       :data-step "1" :data-intro "مرحبا، قم بكتابة النص المراد تنسيقه هنا"}]
+                                       :style {:text-align "center"}}]
           [:button.btn.btn-primary.btn-lg {:on-click #(reset! text-out (convert @text-in))
-                                           :disabled (if (empty? @text-in) true false)
-                                           :data-step "2" :data-intro "ثم قم بالضغط على زر التحويل"}
-                                           "حوّل"]]]]
+                                           :disabled (if (empty? @text-in) true false)} "حوّل"]]]]
 
        [:div.column.col-12
         [:div.divider]]
 
         [:div.column.col-12
-         [:div.card {:data-step "3" :data-intro "أخيرا سيظهر النص هنا، كل ماعليك فعله هو الضغط على زر *انسخ* ولصق النص في تويتر"}
-           [:h1.text-center {:id "copy-cell"} @text-out]
-           [clipboard-button "انسخ" "#copy-cell" (empty? @text-out)]]]
+         [:div.card
+          [:h1.text-center {:id "copy-cell"} @text-out]
+          [clipboard-button "انسخ" "#copy-cell" (empty? @text-out)]]]
 
        [:div.column.col-12
         [:div.divider]]
@@ -69,9 +65,7 @@
 
 
 (defn mount-root []
-  (r/render [home-page] (.getElementById js/document "app"))
-  (.start (.setOptions (js/introJs) #js{:nextLabel "التالي" :prevLabel "السابق" :skipLabel "خروج" :doneLabel "تم"}))
-  )
+  (r/render [home-page] (.getElementById js/document "app")))
 
 (defn init! []
   (mount-root))
