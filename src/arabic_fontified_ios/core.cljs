@@ -38,7 +38,9 @@
        [:div.column.col-12
         [:div.empty
          [:div.input-group
-          [:input.form-input.input-lg {:on-change #(reset! text-in (-> % .-target .-value))
+          [:input.form-input.input-lg {:on-change #(do
+                                                     (reset! text-in (-> % .-target .-value))
+                                                     (when (empty? @text-in) (reset! text-out "")))
                                        :placeholder "أدخل النص هنا"
                                        :style {:text-align "center"}}]
           [:button.btn.btn-primary.btn-lg {:on-click #(reset! text-out (convert @text-in))
