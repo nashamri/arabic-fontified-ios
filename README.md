@@ -1,3 +1,13 @@
+![GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)
+
+# arabic-fontified-ios
+
+A little web utility to decorate Arabic text in iOS apps.
+
+### Live version
+
+A live copy of this repo is available on my site. You can access it
+[Here](https://nasser.space/arabic-fontified-ios).
 
 ### Development mode
 
