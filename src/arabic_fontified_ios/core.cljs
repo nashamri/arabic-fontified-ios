@@ -34,36 +34,37 @@
   (let [text-in (r/atom "")
         text-out (r/atom "")]
     (fn []
-      [:div.columns
-       [:div.column.col-12
-        [:div.empty
-         [:div.input-group
-          [:input.form-input.input-lg {:on-change #(do
-                                                     (reset! text-in (-> % .-target .-value))
-                                                     (when (empty? @text-in) (reset! text-out "")))
-                                       :placeholder "أدخل النص هنا"
-                                       :style {:text-align "center"}}]
-          [:button.btn.btn-primary.btn-lg {:on-click #(reset! text-out (convert @text-in))
-                                           :disabled (if (empty? @text-in) true false)} "حوّل"]]]]
+      [:div.container
+       [:div.columns
+        [:div.column.col-12
+         [:div.empty
+          [:div.input-group
+           [:input.form-input.input-lg {:on-change #(do
+                                                      (reset! text-in (-> % .-target .-value))
+                                                      (when (empty? @text-in) (reset! text-out "")))
+                                        :placeholder "أدخل النص هنا"
+                                        :style {:text-align "center"}}]
+           [:button.btn.btn-primary.btn-lg {:on-click #(reset! text-out (convert @text-in))
+                                            :disabled (if (empty? @text-in) true false)} "حوّل"]]]]
 
-       [:div.column.col-12
-        [:div.divider]]
+        [:div.column.col-12
+         [:div.divider]]
 
         [:div.column.col-12
          [:div.card
           [:h1.text-center {:id "copy-cell"} @text-out]
           [clipboard-button "انسخ" "#copy-cell" (empty? @text-out)]]]
 
-       [:div.column.col-12
-        [:div.divider]]
+        [:div.column.col-12
+         [:div.divider]]
 
-       [:div.column.col-12.text-center
-        [:div [:sub.text-gray "برمجة: ناصر الشمري"]]
-        [:a.btn.btn-link {:href "https://twitter.com/nashamri"} "Twitter"]
-        [:img.avatar.avatar-xm {:src "./img/avatar.jpg" :width "34px"}]
-        [:a.btn.btn-link {:href "https://github.com/nashamri/arabic-fontified-ios"} "GitHub"]]
+        [:div.column.col-12.text-center
+         [:div [:sub.text-gray "برمجة: ناصر الشمري"]]
+         [:a.btn.btn-link {:href "https://twitter.com/nashamri"} "Twitter"]
+         [:img.avatar.avatar-xm {:src "./img/avatar.jpg" :width "34px"}]
+         [:a.btn.btn-link {:href "https://github.com/nashamri/arabic-fontified-ios"} "GitHub"]]
 
-       ])))
+        ]])))
 
 
 (defn mount-root []
