@@ -1,4 +1,4 @@
-(defproject fontify-twitter "0.1.0-SNAPSHOT"
+(defproject arabic-fontified-ios "0.1.0-SNAPSHOT"
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
@@ -28,7 +28,7 @@
   :cljsbuild {:builds {:app
                        {:source-paths ["src" "env/dev/cljs"]
                         :compiler
-                        {:main "fontify-twitter.dev"
+                        {:main "arabic-fontified-ios.dev"
                          :output-to "public/js/app.js"
                          :output-dir "public/js/out"
                          :asset-path   "js/out"
@@ -36,7 +36,7 @@
                          :optimizations :none
                          :pretty-print  true}
                         :figwheel
-                        {:on-jsload "fontify-twitter.core/mount-root"
+                        {:on-jsload "arabic-fontified-ios.core/mount-root"
                          :open-urls ["http://localhost:3449/index.html"]}}
                        :release
                        {:source-paths ["src" "env/prod/cljs"]

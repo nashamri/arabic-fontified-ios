@@ -1,4 +1,4 @@
-(ns fontify-twitter.core
+(ns arabic-fontified-ios.core
   (:require
    [reagent.core :as r]
    [clojure.string :as str]
@@ -56,10 +56,10 @@
         [:div.divider]]
 
        [:div.column.col-12.text-center
-        [:div [:sub.text-gray "Made by: Nasser Alshammari"]]
+        [:div [:sub.text-gray "برمجة: ناصر الشمري"]]
         [:a.btn.btn-link {:href "https://twitter.com/nashamri"} "Twitter"]
         [:img.avatar.avatar-xm {:src "./img/avatar.jpg" :width "34px"}]
-        [:a.btn.btn-link {:href "https://github.com/nashamri/fontify-twitter"} "GitHub"]]
+        [:a.btn.btn-link {:href "https://github.com/nashamri/arabic-fontified-ios"} "GitHub"]]
 
        ])))
 
@@ -69,5 +69,3 @@
 
 (defn init! []
   (mount-root))
-
-(not (empty? " "))

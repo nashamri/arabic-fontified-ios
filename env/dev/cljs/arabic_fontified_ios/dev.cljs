@@ -1,6 +1,6 @@
-(ns ^:figwheel-no-load fontify-twitter.dev
+(ns ^:figwheel-no-load arabic-fontified-ios.dev
   (:require
-    [fontify-twitter.core :as core]
+    [arabic-fontified-ios.core :as core]
     [devtools.core :as devtools]))
 
 

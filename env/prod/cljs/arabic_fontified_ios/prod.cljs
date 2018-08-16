@@ -1,6 +1,6 @@
-(ns fontify-twitter.prod
+(ns arabic-fontified-ios.prod
   (:require
-    [fontify-twitter.core :as core]))
+    [arabic-fontified-ios.core :as core]))
 
 ;;ignore println statements in prod
 (set! *print-fn* (fn [& _]))
