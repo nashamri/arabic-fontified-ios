@@ -4,13 +4,46 @@
    [clojure.string :as str]
    [cljsjs.clipboard]))
 
-;; "﮼ "
+(defonce magic-char "﮼")
+
+(defn str-insert
+  "Insert c in string s at index i."
+  [s c i]
+  (str (subs s 0 i) c (subs s i)))
+
+(defn strs-insert
+  [char idxs string]
+  (loop [char char
+         idxs idxs
+         string string]
+    (if (empty? idxs)
+      string
+      (recur char
+             (rest idxs)
+             (str-insert string char (first idxs))))))
+
+(defn indices [string val]
+  (loop [string string
+         val val
+         start 0
+         acc []]
+    (if (nil? (str/index-of string val start))
+      acc
+      (recur string
+             val
+             (inc (str/index-of string val start))
+             (conj acc (str/index-of string val start))))))
 
 (defn convert [txt]
-  (let [st (str/split txt #" ")
-        pt (map (fn [c] (str "﮼" c)) st)
-        it (interpose " " pt)]
-    (apply str it)))
+  (let [split-txt (str/split txt #" ")
+        tmp (->> split-txt
+                 (map (fn [c] (str magic-char c)))
+                 (interpose " ")
+                 (apply str))
+        new-lines (map inc (indices tmp "\n"))]
+    (strs-insert magic-char new-lines tmp)))
+
+(convert "hello\nthere\nin\nthis\napplication")
 
 (defn clipboard-button [label target show]
   (let [clipboard-atom (r/atom nil)]
@@ -37,26 +70,30 @@
       [:div.container
        [:div.columns
         [:div.column.col-12
-         [:div.empty
+         [:div
           [:div.input-group
-           [:input.form-input.input-lg {:on-change #(do
-                                                      (reset! text-in (-> % .-target .-value))
-                                                      (when (empty? @text-in) (reset! text-out "")))
-                                        :placeholder "أدخل النص هنا"
-                                        :style {:text-align "center"}}]
-           [:button.btn.btn-primary.btn-lg {:on-click #(reset! text-out (convert @text-in))
-                                            :disabled (if (empty? @text-in) true false)} "حوّل"]]]]
+           [:textarea.form-input {:on-change #(do
+                                                (reset! text-in (-> % .-target .-value))
+                                                (when (empty? @text-in) (reset! text-out "")))
+                                  :placeholder "أدخل النص هنا"
+                                  :rows "4"
+                                  :value @text-in
+                                  :style {:text-align "center"}}]]
+          [:div.columns
+           [:div.column.col-6
+            [:div.card
+             [:button.btn.btn-primary.btn-lg {:on-click #(reset! text-out (convert @text-in))
+                                              :disabled (if (empty? @text-in) true false)} "حوّل"]]]
 
-        [:div.column.col-12
-         [:div.divider]]
+           [:div.column.col-6
+            [:div.card
+             [:button.btn.btn-primary.btn-lg {:on-click #(reset! text-in "")
+                                              :disabled (if (empty? @text-in) true false)} "امسح"]]]]]]
 
         [:div.column.col-12
          [:div.card
-          [:h1.text-center {:id "copy-cell"} @text-out]
+          [:pre.text-center {:id "copy-cell"} @text-out]
           [clipboard-button "انسخ" "#copy-cell" (empty? @text-out)]]]
-
-        [:div.column.col-12
-         [:div.divider]]
 
         [:div.column.col-12.text-center
          [:div [:sub.text-gray "برمجة: ناصر الشمري"]]
