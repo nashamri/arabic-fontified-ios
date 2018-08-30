@@ -36,14 +36,13 @@
 
 (defn convert [txt]
   (let [split-txt (str/split txt #" ")
-        tmp (->> split-txt
-                 (map (fn [c] (str magic-char c)))
-                 (interpose " ")
-                 (apply str))
-        new-lines (map inc (indices tmp "\n"))]
-    (strs-insert magic-char new-lines tmp)))
-
-(convert "hello\nthere\nin\nthis\napplication")
+        tmp-txt (->> split-txt
+                     (map (fn [c] (str magic-char c)))
+                     (interpose " ")
+                     (apply str))
+        tmp-idx (indices tmp-txt "\n")
+        new-lines (map (fn [x y] (+ 1 x y)) tmp-idx (range (count tmp-idx)))]
+    (strs-insert magic-char new-lines tmp-txt)))
 
 (defn clipboard-button [label target show]
   (let [clipboard-atom (r/atom nil)]
